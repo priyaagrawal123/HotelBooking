@@ -8,6 +8,8 @@ function BookingForm({ hotel, onClose }) {
     const [showDraftMessage, setShowDraftMessage] = useState(false);
     const [message, setMessage] = useState('');
     const [errors, setErrors] = useState({});
+    const [showPaymentPopup, setShowPaymentPopup] = useState(false);
+    const [selectedMethod, setSelectedMethod] = useState('');
 
     const handleCancel = () => {
         const filledFields = [checkIn, checkOut, checkInTime, checkOutTime].filter(field => field.trim() !== '').length;
@@ -17,7 +19,6 @@ function BookingForm({ hotel, onClose }) {
             setShowDraftMessage(true);
         } else {
             setErrors({ draft: 'At least 2 fields need to be filled to save the draft.' });
-            // Ensure the form does not close when only one field is filled
         }
     };
 
@@ -25,8 +26,8 @@ function BookingForm({ hotel, onClose }) {
         if (showDraftMessage) {
             const timer = setTimeout(() => {
                 setShowDraftMessage(false);
-                onClose(hotel, true); // Close after showing draft message
-            }, 1000); // Display message for 1 second
+                onClose(hotel, true);
+            }, 1000);
 
             return () => clearTimeout(timer);
         }
@@ -35,32 +36,36 @@ function BookingForm({ hotel, onClose }) {
     const handleConfirmBooking = () => {
         const validationErrors = validateFields();
         if (Object.keys(validationErrors).length === 0) {
-            alert('Booking Confirmed');
-            onClose(hotel, false); // Close after confirming the booking
+            setShowPaymentPopup(true);
         } else {
             setErrors(validationErrors);
         }
     };
 
+    const handlePaymentConfirm = () => {
+        setShowPaymentPopup(false);
+        setMessage('Booking Confirmed');
+        setShowDraftMessage(true);
+        setTimeout(() => {
+            onClose(hotel, false); // Close after showing the booking confirmation
+        }, 1000);
+    };
+
     const validateFields = () => {
         const errors = {};
 
-        // Parsing check-in time
         const checkInTimeHour = parseInt(checkInTime.split(':')[0], 10);
         const checkInTimeMinute = parseInt(checkInTime.split(':')[1], 10);
 
-        // Parsing check-out time
         const checkOutTimeHour = parseInt(checkOutTime.split(':')[0], 10);
         const checkOutTimeMinute = parseInt(checkOutTime.split(':')[1], 10);
 
-        // Validate Check-In Time
         if (!checkInTime) {
             errors.checkInTime = 'Check-In time is required.';
         } else if (checkInTimeHour < 6 || (checkInTimeHour === 12 && checkInTimeMinute > 0) || checkInTimeHour > 24) {
             errors.checkInTime = 'Check-In time must be between 6:00 AM and 12:00 AM.';
         }
 
-        // Validate Check-Out Time
         if (!checkOutTime) {
             errors.checkOutTime = 'Check-Out time is required.';
         } else if (checkOutTimeHour < 6 || (checkOutTimeHour === 12 && checkOutTimeMinute > 0) || checkOutTimeHour > 24) {
@@ -73,7 +78,11 @@ function BookingForm({ hotel, onClose }) {
     const allFieldsFilled = checkIn && checkOut && checkInTime && checkOutTime;
 
     const handleCloseWithoutMessage = () => {
-        onClose(hotel, false); // Close without showing any message
+        onClose(hotel, false);
+    };
+
+    const handleMethodChange = (e) => {
+        setSelectedMethod(e.target.value);
     };
 
     return (
@@ -96,7 +105,7 @@ function BookingForm({ hotel, onClose }) {
                         value={checkIn}
                         onChange={(e) => setCheckIn(e.target.value)}
                         className={`block w-full border ${errors.checkIn ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2`}
-                        min={new Date().toISOString().split('T')[0]} // Minimum date is today
+                        min={new Date().toISOString().split('T')[0]}
                     />
                     {errors.checkIn && <p className="text-red-500 text-sm mt-1">{errors.checkIn}</p>}
                 </div>
@@ -119,7 +128,7 @@ function BookingForm({ hotel, onClose }) {
                         value={checkOut}
                         onChange={(e) => setCheckOut(e.target.value)}
                         className={`block w-full border ${errors.checkOut ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2`}
-                        min={checkIn || new Date().toISOString().split('T')[0]} // Minimum date is today or the check-in date
+                        min={checkIn || new Date().toISOString().split('T')[0]}
                     />
                     {errors.checkOut && <p className="text-red-500 text-sm mt-1">{errors.checkOut}</p>}
                 </div>
@@ -145,7 +154,7 @@ function BookingForm({ hotel, onClose }) {
                         disabled={!allFieldsFilled}
                         className={`py-2 px-4 rounded ${allFieldsFilled ? 'bg-blue-600 hover:bg-blue-500' : 'bg-gray-400 cursor-not-allowed'}`}
                     >
-                        Confirm Booking
+                        Make Payment
                     </button>
                 </div>
                 {errors.draft && (
@@ -154,6 +163,37 @@ function BookingForm({ hotel, onClose }) {
                 {showDraftMessage && (
                     <div className="absolute top-0 left-0 right-0 bg-yellow-100 border border-yellow-300 p-4 rounded shadow-lg mt-4 text-center">
                         <p className="text-yellow-800">{message}</p>
+                    </div>
+                )}
+                {showPaymentPopup && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+                            <h4 className="text-lg font-semibold mb-4">Payment Options</h4>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-1">Choose Payment Method:</label>
+                                <select
+                                    value={selectedMethod}
+                                    onChange={handleMethodChange}
+                                    className="block w-full border border-gray-300 rounded-lg p-2"
+                                >
+                                    <option value="" disabled>Select payment method</option>
+                                    <option value="qr">QR Code</option>
+                                    <option value="upi">UPI</option>
+                                    <option value="card">Credit/Debit Card</option>
+                                </select>
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-1">Total Amount:</label>
+                                <p className="text-lg font-bold">₹{hotel.price}</p>
+                            </div>
+                            <button
+                                onClick={handlePaymentConfirm}
+                                disabled={!selectedMethod}
+                                className={`w-full py-2 px-4 rounded ${selectedMethod ? 'bg-green-600 hover:bg-green-500' : 'bg-gray-400 cursor-not-allowed'}`}
+                            >
+                                Confirm Booking
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>

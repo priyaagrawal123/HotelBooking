@@ -55,7 +55,7 @@
       "name": "City View Inn",
       "location": "Pune",
       "type": "India",
-      "imageUrl": "./images/cityviewinpune.jpg",
+      "imageUrl": "./cityviewinpune.jpg",
       "rating": "✨",
       "Price": "₹9000/day",
       "acRoomAvailable": true,

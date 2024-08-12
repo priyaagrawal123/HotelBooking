@@ -43,7 +43,7 @@ function HotelsList({ hotels }) {
                             <div className="absolute bottom-4 right-8 flex flex-col gap-2">
                                 <button
                                     onClick={() => handleBookNow(hotel)}
-                                    className="bg-blue-600 text-white py-2 px-4 pl-9  rounded hover:bg-blue-500"
+                                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500"
                                 >
                                     Book Now
                                 </button>

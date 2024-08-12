@@ -1,8 +1,10 @@
 import React from 'react';
-import { useOngoingActivities } from '../OngoingActivitiesContext';
+import { useOngoingActivities } from './OngoingActivitiesContext';
 
 function Admin() {
     const { visits, draftBookings, completedBookings } = useOngoingActivities();
+
+    console.log("Draft Bookings in Admin: ", draftBookings); // Debugging line
 
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
