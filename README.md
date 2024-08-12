@@ -25,6 +25,6 @@ npm start
 1. FrontEnd-Github: https://github.com/priyaagrawal123/HotelBooking
 
 ## Overview Video Of Project
-Project-Video:https://drive.google.com/drive/u/0/folders/1RM807GpJYMPJyBxYMCNR79Orn-58TeF_
+Project-Video:https://drive.google.com/file/d/1nnAGOuBix1Cqhq4WwsRGZMQTjQJQ2-TE/view?usp=drive_link
 
 For this assignment my focus was on frontend (UI/UX), to make it more User-friendly and to look good.
