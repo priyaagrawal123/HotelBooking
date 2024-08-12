@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 function Navbar() {
     // const logo = require('/components/logo2.png'); // Adjust the path based on where your logo image is stored
     return (
-        <nav className="bg-gray-800 p-4 fixed top-0 left-0 w-full z-50 shadow-md">
+        <nav className="bg-gray-800 p-2 fixed top-0 left-0 w-full z-50 shadow-md">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="text-white text-xl font-bold">
-                    <h1>HotelBookings.com</h1>
+                    <Link to="./homepage">HotelBookings.com</Link>
                     {/* <img src={logo3}></img> */}
                 </div>
                 <div className="flex items-center space-x-4">
@@ -16,7 +16,7 @@ function Navbar() {
                     <Link to="/5star" className="text-white hover:text-gray-400">⭐⭐⭐⭐⭐ 5-Star Hotels</Link>
                     <Link to="/luxury" className="text-white hover:text-gray-400">✨ Extra Luxury</Link>
                     <Link to="/login" className="text-black bg-gray-800 py-2 px-4 rounded hover:bg-gray-600 ml-4 bg-white">Login</Link>
-                    <Link to="/signup" className="text-black bg-gray-800 py-2 px-4 rounded hover:bg-gray-600 bg-white">Signup</Link>
+                    <Link to="/adminlogin" className="text-black bg-gray-800 py-2 px-4 rounded hover:bg-gray-600 bg-white">Admin Login</Link>
                 </div>
             </div>
         </nav>

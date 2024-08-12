@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useBooking } from './BookingContext'; // Import the BookingContext
 
 function BookingForm({ hotel, onClose }) {
+    const { addBooking } = useBooking(); // Access the context
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
     const [checkInTime, setCheckInTime] = useState('');
@@ -47,6 +49,13 @@ function BookingForm({ hotel, onClose }) {
         setMessage('Booking Confirmed');
         setShowDraftMessage(true);
         setTimeout(() => {
+            addBooking({
+                hotel: hotel.name,
+                checkIn,
+                checkOut,
+                checkInTime,
+                checkOutTime
+            });
             onClose(hotel, false); // Close after showing the booking confirmation
         }, 1000);
     };
@@ -54,21 +63,22 @@ function BookingForm({ hotel, onClose }) {
     const validateFields = () => {
         const errors = {};
 
+        if (!checkIn) errors.checkIn = 'Check-In date is required.';
+        if (!checkOut) errors.checkOut = 'Check-Out date is required.';
+        if (!checkInTime) errors.checkInTime = 'Check-In time is required.';
+        if (!checkOutTime) errors.checkOutTime = 'Check-Out time is required.';
+
         const checkInTimeHour = parseInt(checkInTime.split(':')[0], 10);
         const checkInTimeMinute = parseInt(checkInTime.split(':')[1], 10);
 
         const checkOutTimeHour = parseInt(checkOutTime.split(':')[0], 10);
         const checkOutTimeMinute = parseInt(checkOutTime.split(':')[1], 10);
 
-        if (!checkInTime) {
-            errors.checkInTime = 'Check-In time is required.';
-        } else if (checkInTimeHour < 6 || (checkInTimeHour === 12 && checkInTimeMinute > 0) || checkInTimeHour > 24) {
+        if (checkInTime && (checkInTimeHour < 6 || (checkInTimeHour === 12 && checkInTimeMinute > 0) || checkInTimeHour > 24)) {
             errors.checkInTime = 'Check-In time must be between 6:00 AM and 12:00 AM.';
         }
 
-        if (!checkOutTime) {
-            errors.checkOutTime = 'Check-Out time is required.';
-        } else if (checkOutTimeHour < 6 || (checkOutTimeHour === 12 && checkOutTimeMinute > 0) || checkOutTimeHour > 24) {
+        if (checkOutTime && (checkOutTimeHour < 6 || (checkOutTimeHour === 12 && checkOutTimeMinute > 0) || checkOutTimeHour > 24)) {
             errors.checkOutTime = 'Check-Out time must be between 6:00 AM and 12:00 AM.';
         }
 
@@ -139,8 +149,9 @@ function BookingForm({ hotel, onClose }) {
                         id="checkOutTime"
                         value={checkOutTime}
                         onChange={(e) => setCheckOutTime(e.target.value)}
-                        className="block w-full border border-gray-300 rounded-lg p-2"
+                        className={`block w-full border ${errors.checkOutTime ? 'border-red-500' : 'border-gray-300'} rounded-lg p-2`}
                     />
+                    {errors.checkOutTime && <p className="text-red-500 text-sm mt-1">{errors.checkOutTime}</p>}
                 </div>
                 <div className="flex justify-end space-x-4">
                     <button
@@ -176,23 +187,20 @@ function BookingForm({ hotel, onClose }) {
                                     onChange={handleMethodChange}
                                     className="block w-full border border-gray-300 rounded-lg p-2"
                                 >
-                                    <option value="" disabled>Select payment method</option>
-                                    <option value="qr">QR Code</option>
-                                    <option value="upi">UPI</option>
-                                    <option value="card">Credit/Debit Card</option>
+                                    <option value="" disabled>Select a method</option>
+                                    <option value="UPI">UPI</option>
+                                    <option value="Credit/Debit Card">Credit/Debit Card</option>
                                 </select>
                             </div>
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium mb-1">Total Amount:</label>
-                                <p className="text-lg font-bold">₹{hotel.price}</p>
+
+                            <div className="flex justify-end space-x-4">
+                                <button
+                                    onClick={handlePaymentConfirm}
+                                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500"
+                                >
+                                    Confirm Booking
+                                </button>
                             </div>
-                            <button
-                                onClick={handlePaymentConfirm}
-                                disabled={!selectedMethod}
-                                className={`w-full py-2 px-4 rounded ${selectedMethod ? 'bg-green-600 hover:bg-green-500' : 'bg-gray-400 cursor-not-allowed'}`}
-                            >
-                                Confirm Booking
-                            </button>
                         </div>
                     </div>
                 )}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -20,13 +20,13 @@ function Login() {
         console.log('Email:', email, 'Password:', password, 'UserID:', uniqueID);
 
         // Navigate to the dashboard on successful login
-        navigate('/dashboard');
+        navigate('/admindashboard');
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-                <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
+                <h2 className="text-3xl font-bold text-center mb-6">AdminLogin</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
@@ -57,12 +57,12 @@ function Login() {
                         />
                     </div>
                     <div className="flex items-center justify-between">
-                        <button
+                        <Link to="/admindashboard"
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
                             Sign In
-                        </button>
+                        </Link>
                         <a
                             href="#"
                             className="text-sm font-semibold text-blue-500 hover:text-blue-800"

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookingForm from './BookingForm';
+import { useHotel } from './HotelContext'; // Import the context
 
-function HotelsList({ hotels }) {
+function HotelsList({ hotels, onClose }) {
     const [selectedHotel, setSelectedHotel] = useState(null);
+    const { incrementVisit } = useHotel(); // Access the incrementVisit function
 
     const handleBookNow = (hotel) => {
         setSelectedHotel(hotel);
@@ -12,16 +14,20 @@ function HotelsList({ hotels }) {
     const handleCloseForm = () => {
         setSelectedHotel(null);
     };
-
+    const handleViewDetails = () => {
+        incrementVisit(hotels.name); // Increment visit count
+        // Navigate to the details page or perform other actions
+    };
     return (
-        <div className="p-8 bg-gray-100 min-h-screen">
+        <div className="p-8 min-h-screen">
             <h2 className="text-2xl font-bold mb-8 text-center">Available Hotels</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <h2 className="text-xl font-bold mb-4">{hotels.name}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
                 {hotels.length > 0 ? (
                     hotels.map(hotel => (
                         <div
                             key={hotel.id}
-                            className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 relative"
+                            className="bg-white rounded-lg border-2 shadow-lg overflow-hidden transition-transform transform hover:scale-105 relative"
                             style={{ height: '300px' }}
                         >
                             <div
@@ -37,7 +43,7 @@ function HotelsList({ hotels }) {
                                     <p className="text-gray-300">{hotel.location}</p>
                                     <p className="text-gray-400">{hotel.type}</p>
                                     <p className="text-gray-400">{hotel.rating}</p>
-                                    <p className="text-gray-400">{hotel.price}</p>
+                                    <p className="text-gray-400">{hotel.Price}</p>
                                 </div>
                             </div>
                             <div className="absolute bottom-4 right-8 flex flex-col gap-2">

@@ -1,0 +1,32 @@
+{
+    "draftBookings": [
+      {
+        "hotelName": "Grand Plaza",
+        "checkInDate": "2024-09-01",
+        "checkOutDate": "2024-09-05"
+       
+      },
+      {
+        "hotelName": "Oceanview Resort",
+        "checkInDate": "2024-09-10",
+        "checkOutDate": "2024-09-15"
+       
+      },
+      {
+        "hotelName": "Mountain Retreat",
+        "checkInDate": "2024-09-20",
+        "checkOutDate": "2024-09-25"
+      
+      }
+    ],
+    "completedBookings": [
+      {
+        "hotelName": "City Center Inn",
+        "checkInDate": "2024-07-01",
+        "checkOutDate": "2024-07-07",
+        "checkInTime": "15:00",
+            "checkOutTime": "11:00"
+      }
+    ]
+  }
+  
