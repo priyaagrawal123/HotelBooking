@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+# Hotel-Management Booking
+> This project is a hotel booking platform designed for an optimal user experience with a focus on elegant UI/UX. It allows users to easily browse hotels, book accommodations, and manage their reservations seamlessly. Utilizing modern web technologies.
+## Technology:
+1. FrontEnd:ReactJs, HTML5, TailwindCSS, JavaScript.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to Run and Demonstrate Project
+1. Download the zip file.
+2. Extract the zip file.
+3. Open in VsCode or any IDE.
+4. open terminal, type
+```bash   
+npm install
+npm start
+```
 
-## Available Scripts
+## Features
+1. Hotel Browsing: View available hotels with detailed information.
+2. Search Functionality: Filter hotels by city or name.
+3. Booking System: Book a hotel with options for partial or full booking.
+4. Customer login and customer dashboard.
+5. Admin login and Can see Customers Visits on hotels ,Draft bookings and completed bookings.
+6. Admin Interface: Manage hotel listings and bookings.
 
-In the project directory, you can run:
+## Github Repositories
+1. FrontEnd-Github: https://github.com/priyaagrawal123/HotelBooking
 
-### `npm start`
+## Overview Video Of Project
+Project-Video: https://drive.google.com/drive/u/0/folders/1RM807GpJYMPJyBxYMCNR79Orn-58TeF_
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For this assignment my focus was on frontend (UI/UX), to make it more User-friendly and to look good.
